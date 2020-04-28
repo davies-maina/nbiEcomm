@@ -1,5 +1,7 @@
 <?php
 
+
+
 return [
 
     /*
@@ -40,7 +42,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins', //admins b/c of table name
+        ],
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -69,6 +74,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
         ],
 
         // 'users' => [
