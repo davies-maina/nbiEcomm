@@ -32,6 +32,16 @@
   </button>
 </div>
    @endif
+
+   @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
@@ -41,7 +51,7 @@
     <form action="{{url('/admin')}}" method="post">
       @csrf
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" name="email">
+          <input type="email" class="form-control" placeholder="Email" name="email" type="text">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
