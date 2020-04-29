@@ -23,14 +23,25 @@
   <div class="login-logo">
     <a href="../"><b>Admin</b>PANEL</a>
   </div>
+
+   @if (Session::has('error_message'))
+       <div class="alert alert-warning alert-dismissible fade show" role="alert">
+       <strong>{{Session::get('error_message')}}</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+   @endif
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
+     
 
-      <form action="../../index3.html" method="post">
+    <form action="{{url('/admin')}}" method="post">
+      @csrf
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" class="form-control" placeholder="Email" name="email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -38,7 +49,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" placeholder="Password" name="password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
