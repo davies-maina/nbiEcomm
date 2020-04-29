@@ -44,6 +44,7 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+</body>
 
 <!-- jQuery -->
 <script src="{{url('plugins/jquery/jquery.min.js')}}"></script>
@@ -79,5 +80,6 @@
 <script src="{{url('js/admin_js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{url('js/admin_js/demo.js')}}"></script>
+<script src="{{url('js/admin_js/customAdminScripts.js')}}"></script>
 </body>
 </html>

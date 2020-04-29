@@ -90,7 +90,7 @@
         </div>
         <!-- /.row -->
         <!-- Main row -->
-        <div class="row">
+        {{-- <div class="row">
           <!-- Left col -->
           <section class="col-lg-7 connectedSortable">
             <!-- Custom tabs (Charts with tabs)-->
@@ -606,7 +606,7 @@
             <!-- /.card -->
           </section>
           <!-- right col -->
-        </div>
+        </div> --}}
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>
