@@ -14,7 +14,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Admin settings</li>
+              <li class="breadcrumb-item active">Admin update details</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -31,7 +31,7 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Update password</h3>
+                <h3 class="card-title">Update your details</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -51,34 +51,44 @@
 
    @endif
    </div>
-            <form role="form" method="post" action="{{url('/admin/update_curr_pwd')}}" name="updatePasswordForm">
+   @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+            <form role="form" method="post" action="{{url('/admin/update-admin-data')}}" name="updateadmindata">
               @csrf
                 <div class="card-body">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Admin name</label>
-                  <input type="text" class="form-control" readonly value="{{$adminDetails->name}}" {{-- id="admin_name" name="admin_name" --}}>
-                  </div>
+                 
                   <div class="form-group">
                     <label for="exampleInputEmail1">Admin type</label>
                   <input type="text" class="form-control" readonly value="{{$adminDetails->type}}">
+                  </div>
+                   <div class="form-group">
+                    <label for="exampleInputEmail1">Admin name</label>
+                  <input type="text" class="form-control" value="{{$adminDetails->name}}" id="admin_name" name="admin_name">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
                   <input type="email" class="form-control" readonly value="{{$adminDetails->email}}" >
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Current Password</label>
-                    <input type="password" class="form-control" placeholder="current Password" id="current_pwd" name="current_pwd" required>
-                    <span id="checkCurrentPassword"></span>
+                    <label for="exampleInputPassword1">Mobile</label>
+                    <input type="integer" class="form-control" placeholder="mobile Password" id="mobile" name="mobile" value="{{$adminDetails->mobile}}">
+                   {{--  <span id="checkCurrentPassword"></span> --}}
                   </div>
                    <div class="form-group">
-                    <label for="exampleInputPassword1">New Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="new Password" id="new_pwd" name="new_pwd" required>
+                    <label for="exampleInputPassword1">Admin image</label>
+                    <input type="file" class="form-control" id="exampleInputPassword1" id="admin_image" name="admin_image" >
                   </div>
-                   <div class="form-group">
+                   {{-- <div class="form-group">
                     <label for="exampleInputPassword1">Confirm Password</label>
                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="confirm new Password" id="confirm_pwd" name="confirm_pwd" required>
-                  </div>
+                  </div> --}}
                   
                   
                 </div>
