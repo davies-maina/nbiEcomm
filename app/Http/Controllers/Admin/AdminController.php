@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use Auth;
+use Image;
 use Session;
 use App\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
-use Image;
 
 class AdminController extends Controller
 {
@@ -92,6 +93,13 @@ class AdminController extends Controller
                     $image_name = rand(111, 999999) . '.' . $image_ext;
 
                     $image_path = 'images/admin_images/admin_photos/' . $image_name;
+
+                    $current_image = Auth::guard('admin')->user()->image;
+                    $current_image = 'images/admin_images/admin_photos/' . $current_image;
+
+                    if (File::exists($current_image)) {
+                        File::delete($current_image);
+                    }
 
                     Image::make($imgD)->resize(200, 200)->save($image_path);
                 }
