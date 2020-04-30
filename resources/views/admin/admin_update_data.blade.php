@@ -60,7 +60,7 @@
         </ul>
     </div>
 @endif
-            <form role="form" method="post" action="{{url('/admin/update-admin-data')}}" name="updateadmindata">
+            <form role="form" method="post" action="{{url('/admin/update-admin-data')}}" name="updateadmindata" enctype="multipart/form-data">
               @csrf
                 <div class="card-body">
                  
@@ -83,7 +83,11 @@
                   </div>
                    <div class="form-group">
                     <label for="exampleInputPassword1">Admin image</label>
-                    <input type="file" class="form-control" id="exampleInputPassword1" id="admin_image" name="admin_image" >
+                    <input type="file" class="form-control" id="exampleInputPassword1" id="admin_image" name="admin_image" accept="image/*" >
+                    @if (!empty(Auth::guard('admin')->user()->image))
+                   <a href="{{url('images/admin_images/admin_photos/'.Auth::guard('admin')->user()->image)}}">view image</a>
+                   <input type="hidden" name="current_admin_image" value="{{Auth::guard('admin')->user()->image}}">
+                    @endif
                   </div>
                    {{-- <div class="form-group">
                     <label for="exampleInputPassword1">Confirm Password</label>

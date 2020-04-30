@@ -8,6 +8,7 @@ use App\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Image;
 
 class AdminController extends Controller
 {
@@ -69,19 +70,40 @@ class AdminController extends Controller
 
             $rules = [
                 'admin_name' => ['required', 'alpha', 'regex:/^[\pL\s\-\/]+$/u'],
-                'mobile' => ['required', 'numeric']
+                'mobile' => ['required', 'numeric'],
+                'admin_image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048'
+
             ];
             $customMessage = [
 
                 'admin_name.required' => 'An admin name is required',
                 'admin_name.alpha' => 'Name can only have alphabets',
                 'mobile.required' => 'Mobile is required',
-                'mobile.numeric' => 'Enter valid number'
+                'mobile.numeric' => 'Enter valid number',
+                'admin_image.mimes' => 'Valid image is required'
             ];
             $this->validate($request, $rules, $customMessage);
 
+            if ($request->hasFile('admin_image')) {
+                $imgD = $request->file('admin_image');
+                if ($imgD->isValid()) {
+                    $image_ext = $imgD->getClientOriginalExtension();
+
+                    $image_name = rand(111, 999999) . '.' . $image_ext;
+
+                    $image_path = 'images/admin_images/admin_photos/' . $image_name;
+
+                    Image::make($imgD)->resize(200, 200)->save($image_path);
+                }
+            } else if (!empty($data['current_admin_image'])) {
+                $image_name = $data['current_admin_image'];
+            } else {
+                $image_name = '';
+            }
+
+
             Admin::where('email', Auth::guard('admin')->user()->email)
-                ->update(['name' => $data['admin_name'], 'mobile' => $data['mobile']]);
+                ->update(['name' => $data['admin_name'], 'mobile' => $data['mobile'], 'image' => $image_name]);
 
             Session::flash('success_message', 'admin details updated successfully');
             return redirect()->back();
