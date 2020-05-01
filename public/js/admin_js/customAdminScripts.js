@@ -25,4 +25,35 @@ $(document).ready(function() {
         })
 
     });
+
+    $(".updateSectionStatus").click(function() {
+
+        let status = $(this).text();
+        let section_id = $(this).attr("section_id");
+        /*  alert(status);
+         alert(section_id); */
+
+        $.ajax({
+            type: 'post',
+            url: '/admin/update-section-status',
+            data: { status: status, section_id: section_id },
+            success: function(resp) {
+                /*  alert(resp['status']);
+                alert(resp['section_id']);
+ */
+                if (resp['status'] == 0) {
+                    $("#section-" + section_id).html("<a class='updateSectionStatus' href='javascript:void(0)'>Inactive</a>");
+                } else if (resp['status'] == 1) {
+                    $("#section-" + section_id).html("<a class='updateSectionStatus' href='javascript:void(0)'>Active</a>");
+                }
+
+
+            },
+            error: function() {
+
+                /*  alert('error'); */
+            }
+
+        });
+    });
 });

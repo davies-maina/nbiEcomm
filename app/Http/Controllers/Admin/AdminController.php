@@ -122,6 +122,7 @@ class AdminController extends Controller
         return view('admin.admin_update_data')->with(compact('adminDetails'));
     }
 
+
     public function login(Request $request)
     {
         if ($request->isMethod('post')) {

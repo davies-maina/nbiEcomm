@@ -46,8 +46,32 @@
                   <p>Update admin details</p>
                 </a>
               </li>
-              
+            </ul>   
+
+             <li class="nav-item has-treeview menu-open">
+          <a href="#" class="nav-link {{Request::routeIs('sections')? 'active':''}} || {{Request::routeIs('categories')? 'active':''}}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Categories
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+              <a href="{{url('/admin/sections')}}" class="nav-link {{Request::routeIs('sections')? 'active':''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sections</p>
+                </a>
+              </li>
+              <li class="nav-item">
+              <a href="{{url('/admin/categories')}}" class="nav-link {{Request::routeIs('categories')? 'active':''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Categories</p>
+                </a>
+              </li>
+            </ul>   
         </ul>
+        
       </nav>
       <!-- /.sidebar-menu -->
     </div>
