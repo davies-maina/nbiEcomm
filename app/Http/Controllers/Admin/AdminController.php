@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+
     public function dashboard()
     {
 
@@ -137,13 +138,17 @@ class AdminController extends Controller
                 'password.required' => 'Password is required'
             ];
             $this->validate($request, $rules, $customMessage);
+
             if (Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
-                return redirect('/admin/dashboard');
+                return redirect($request->session()->get('url.intended'));
             } else {
                 Session::flash('error_message', 'Invalid credentials');
                 return redirect()->back();
             }
+
+            return redirect('/admin/dashboard');
         }
+        $request->session()->put('url.intended', url()->previous());
         return view('admin.admin_login');
     }
 
