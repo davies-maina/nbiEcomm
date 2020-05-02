@@ -1,33 +1,33 @@
 @extends('layouts.admin_layout.admin_layout');
 
-@section('content')
+@category('content')
  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <category class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Sections</h1>
+            <h1>Categories</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Sections</li>
+              <li class="breadcrumb-item active">categories</li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
-    </section>
+    </category>
 
     <!-- Main content -->
-    <section class="content">
+    <category class="content">
       <div class="row">
         <div class="col-12">
          
 
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Sections</h3>
+              <h3 class="card-title">categories</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -36,28 +36,30 @@
                 <tr>
                   <th>id</th>
                   <th>Name</th>
-                  <th>Status</th>
+                  <th>url</th>
+                   <th>status</th>
                  
                 </tr>
                 </thead>
                 <tbody>
-                  @foreach ($sections as $section)
+                  @foreach ($categories as $category)
                       <tr>
-                      <td>{{$section->id}}</td>
-                  <td>{{$section->name}}
+                      <td>{{$category->id}}</td>
+                  <td>{{$category->category_name}}
                   </td>
+                <td>{{$category->url}}</td>
                   <td>
-                    @if ($section->status==1)
+                    @if ($category->status==1)
                   <a href="javascript:void(0)" 
-                  class="updateSectionStatus" 
-                  id="section-{{$section->id}}" 
-                  section_id="{{$section->id}}">Active</a>
+                  class="updateCategoryStatus" 
+                  id="category-{{$category->id}}" 
+                  category_id="{{$category->id}}">Active</a>
 
                         @else
                        <a href="javascript:void(0)" 
-                  class="updateSectionStatus" 
-                  id="section-{{$section->id}}" 
-                  section_id="{{$section->id}}">Inactive</a>
+                  class="updateCategoryStatus" 
+                  id="category-{{$category->id}}" 
+                  category_id="{{$category->id}}">Inactive</a>
                     @endif
                   </td>
                   
@@ -67,9 +69,10 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                 <th>id</th>
+                <th>id</th>
                   <th>Name</th>
-                  <th>Status</th>
+                  <th>url</th>
+                   <th>status</th>
                 </tr>
                 </tfoot>
               </table>
@@ -81,8 +84,8 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
-    </section>
+    </category>
     <!-- /.content -->
  </div>
 
-@endsection
+@endcategory

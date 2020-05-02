@@ -89,6 +89,7 @@
 <script>
   $(function () {
     $("#section").DataTable();
+    $("#category").DataTable();
     /* $('#section').DataTable({
       "paging": true,
       "lengthChange": false,
