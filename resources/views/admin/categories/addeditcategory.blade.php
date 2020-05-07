@@ -52,16 +52,10 @@
                       <label for="category_name">Category name</label>
                       <input type="text" class="form-control" placeholder="Category name" name="category_name">
                   </div>
-                <div class="form-group">
-                  <label>Select Section</label>
-                  <select class="form-control select2" style="width: 100%;" name="section_id" id="section_id">
-                    
-                    @foreach ($sections as $section)
-                        <option value="{{$section->id}}">{{$section->name}}</option>
-                    @endforeach
-                    
-                   
-                  </select>
+
+                  
+                <div id="appendCategoriesLevel">
+                  @include('admin.categories.append_categories_level')
                 </div>
 
                  
@@ -98,11 +92,14 @@
               </div>
               <!-- /.col -->
               <div class="col-md-6">
-                <div class="form-group">
-                  <label>Select category level</label>
-                  <select class="form-control select2" style="width: 100%;" name="parent_id"  id="parent_id">
-                    <option value="0">Main Category</option>
-                   
+                
+                 <div class="form-group">
+                  <label>Select Section</label>
+                  <select class="form-control select2" style="width: 100%;" name="section_id" id="section_id">
+                     <option selected disabled>Select</option>
+                    @foreach ($sections as $section)
+                        <option value="{{$section->id}}">{{$section->name}}</option>
+                    @endforeach
                     
                    
                   </select>
