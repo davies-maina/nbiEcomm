@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Section;
 use App\Category;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Image;
+use Session;
 
 class CategoryController extends Controller
 {
@@ -37,5 +40,67 @@ class CategoryController extends Controller
 
             ]);
         }
+    }
+
+    public function addEditCategory(Request $request, $id = null)
+    {
+        if ($id == "") {
+            $title = "Add category";
+            $category = new Category;
+        } else {
+            $title = "Edit category";
+        }
+
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            /* echo '<pre>';
+            print_r($data);
+            die; */
+
+
+            $category->parent_id = $data['parent_id'];
+            $category->section_id = $data['section_id'];
+            $category->category_name = $data['category_name'];
+            if ($request->hasFile('category_image')) {
+                $imgD = $request->file('category_image');
+                if ($imgD->isValid()) {
+                    $image_ext = $imgD->getClientOriginalExtension();
+
+                    $image_name = rand(111, 999999) . '.' . $image_ext;
+
+                    $image_path = 'images/admin_images/category_images/' . $image_name;
+
+                    /* $current_image = Auth::guard('admin')->user()->image;
+                    $current_image = 'images/admin_images/category_images/' . $current_image;
+
+                    if (File::exists($current_image)) {
+                        File::delete($current_image);
+                    } */
+
+                    Image::make($imgD)->resize(500, 500)->save($image_path);
+                    $category->category_image = $image_name;
+                }
+            } /* else if (!empty($data['category_image'])) {
+                $image_name = $data['category_image'];
+               
+            } */
+            /* $category->category_image = '123.jpg'; */
+            $category->category_discount = $data['category_discount'];
+            $category->description = $data['category_desc'];
+            $category->url = $data['category_url'];
+            $category->meta_title = $data['meta_title'];
+            $category->meta_description = $data['meta_desc'];
+            $category->meta_keywords = $data['meta_kwords'];
+            $category->status = 1;
+
+
+            $category->save();
+            Session::flash('success_message', 'Category added');
+            return redirect()->back();
+        }
+
+        $sections = Section::get();
+
+        return view('admin.categories.addeditcategory')->with(compact('title', 'sections'));
     }
 }

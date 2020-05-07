@@ -141,7 +141,13 @@ class AdminController extends Controller
             $this->validate($request, $rules, $customMessage);
 
             if (Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
-                return redirect($request->session()->get('url.intended'));
+                if ($request->session()->get('url.intended')) {
+                    if ($request->session()->get('url.intended') == 'http://nairobae/admin') {
+
+                        return redirect('/admin/dashboard');
+                    }
+                    return redirect($request->session()->get('url.intended'));
+                }
             } else {
                 Session::flash('error_message', 'Invalid credentials');
                 return redirect()->back();
@@ -149,13 +155,20 @@ class AdminController extends Controller
 
             return redirect('/admin/dashboard');
         }
+
         $request->session()->put('url.intended', url()->previous());
+
         return view('admin.admin_login');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
+        $request->session()->forget('url.intended');
+
+
         Auth::guard('admin')->logout();
+
+
         return redirect('/admin');
     }
 }

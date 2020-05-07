@@ -16,6 +16,9 @@
   <link rel="stylesheet" href="{{url('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{url('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{url('plugins/select2/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{url('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
   <!-- JQVMap -->
   <link rel="stylesheet" href="{{url('plugins/jqvmap/jqvmap.min.css')}}">
   <!-- Theme style -->
@@ -56,6 +59,8 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="{{url('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- Select2 -->
+<script src="{{url('plugins/select2/js/select2.full.min.js')}}"></script>
 <!-- DataTables -->
 <script src="{{url('plugins/datatables/jquery.dataTables.js')}}"></script>
 <script src="{{url('plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
@@ -98,6 +103,7 @@
       "info": true,
       "autoWidth": false,
     }); */
+    $('.select2').select2()
   });
 </script>
 </body>
