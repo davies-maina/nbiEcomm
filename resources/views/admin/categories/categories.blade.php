@@ -37,17 +37,31 @@
                 <tr>
                   <th>id</th>
                   <th>Name</th>
-                  <th>url</th>
-                   <th>status</th>
+                  <th>Section</th>
+                  <th>Parent category</th>
+                  <th>Url</th>
+                   <th>Status</th>
                  
                 </tr>
                 </thead>
                 <tbody>
                   @foreach ($categories as $category)
+                  @if (!isset($category->parentcategory->category_name))
+                      <?php 
+                      $parent_category="Root";
+                      ?> 
+
+                      @else
+                      <?php
+                      $parent_category=$category->parentcategory->category_name;
+                      ?>
+                  @endif
                       <tr>
                       <td>{{$category->id}}</td>
                   <td>{{$category->category_name}}
                   </td>
+                  <td>{{$category->section->name}}</td>
+                  <td>{{$parent_category}}</td>
                 <td>{{$category->url}}</td>
                   <td>
                     @if ($category->status==1)
