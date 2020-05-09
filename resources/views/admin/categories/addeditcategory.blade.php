@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Advanced Form</h1>
+            <h1>{{$title}}</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Advanced Form</li>
+            <li class="breadcrumb-item active">{{$title}}</li>
             </ol>
           </div>
         </div>
@@ -31,7 +31,23 @@
        </div>
 
    @endif
-      <form name="categoryForm" id="categoryForm" action="{{url('admin/add-edit-category')}}" method="post"
+   @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+      <form name="categoryForm" id="categoryForm" 
+      
+      @if (empty($categoryData['id']))
+         action="{{url('admin/add-edit-category')}}"  
+      @else
+          action="{{url('admin/add-edit-category/'.$categoryData['id'])}}"
+      @endif
+      method="post"
       enctype="multipart/form-data">
       @csrf
         <div class="card card-default">
@@ -50,7 +66,13 @@
               <div class="col-md-6">
                   <div class="form-group">
                       <label for="category_name">Category name</label>
-                      <input type="text" class="form-control" placeholder="Category name" name="category_name">
+                      <input type="text" class="form-control" placeholder="Category name" name="category_name"
+                      @if (!empty($categoryData['category_name']))
+                          value="{{$categoryData['category_name']}}"
+                      @else
+                  value="{{old('category_name')}}"
+                      @endif
+                      >
                   </div>
 
                   
@@ -76,16 +98,30 @@
                   <div class="col-sm-6">
                       <div class="form-group">
                         <label>Meta title</label>
-                        <textarea class="form-control" rows="3" placeholder="Enter ..." name="meta_title"
-                        id="meta_title"></textarea>
+                        <textarea class="form-control" rows="5" placeholder="Enter ..." name="meta_title"
+                        id="meta_title"
+                         
+                        >
+                         @if (!empty($categoryData['meta_title']))
+                          {{$categoryData['meta_title']}}
+                      @else
+                  {{old('meta_title')}}
+                      @endif
+                      </textarea>
                       </div>
                     </div>
 
                     <div class="col-sm-6">
                       <div class="form-group">
                         <label>Meta keywords</label>
-                        <textarea class="form-control" rows="3" placeholder="Enter ..."
-                        name="meta_kwords" id="meta_kwords"></textarea>
+                        <textarea class="form-control" rows="5" placeholder="Enter ..."
+                        name="meta_keywords">
+                       @if (!empty($categoryData['meta_keywords']))
+                          {{$categoryData['meta_keywords']}}
+                      @else
+                  {{old('meta_keywords')}}
+                      @endif
+                      </textarea>
                       </div>
                     </div>
                 <!-- /.form-group -->
@@ -98,7 +134,12 @@
                   <select class="form-control select2" style="width: 100%;" name="section_id" id="section_id">
                      <option selected disabled>Select</option>
                     @foreach ($sections as $section)
-                        <option value="{{$section->id}}">{{$section->name}}</option>
+                        <option value="{{$section->id}}" @if (!empty($categoryData['section_id'])
+                          && $categoryData['section_id']==$section->id) selected @endif>
+                            {{$section->name}}</option>
+                       
+                            
+                        
                     @endforeach
                     
                    
@@ -108,26 +149,52 @@
                 <div class="form-group">
                       <label for="category_discount">Category discount</label>
                       <input type="text" class="form-control" placeholder="Category discount" name="category_discount"
-                      id="category_discount">
+                      id="category_discount"
+                       @if (!empty($categoryData['category_discount']))
+                          value="{{$categoryData['category_discount']}}"
+                      @else
+                  value="{{old('category_discount')}}"
+                      @endif
+                      >
                   </div>
                   <div class="col-sm-6">
                       <div class="form-group">
                         <label>Category description</label>
-                        <textarea class="form-control" rows="3" placeholder="Enter ..." name="category_desc"
-                        id="category_desc"
-                        ></textarea>
+                        <textarea class="form-control" rows="5" placeholder="Enter ..." name="category_desc"
+                        
+                        >
+                         @if (!empty($categoryData['description']))
+                          {{$categoryData['description']}}
+                      @else
+                  {{old('description')}}
+                      @endif
+                      </textarea>
                       </div>
                     </div>
 
                   <div class="form-group">
                       <label for="category_url">Category url</label>
-                      <input type="text" class="form-control" placeholder="Category url" name="category_url" id="category_url">
+                      <input type="text" class="form-control" placeholder="Category url" name="category_url" id="category_url"
+                       @if (!empty($categoryData['url']))
+                          value="{{$categoryData['url']}}"
+                      @else
+                  value="{{old('url')}}"
+                      @endif
+                      >
                   </div>
 
                   <div class="col-sm-6">
                       <div class="form-group">
                         <label>Meta description</label>
-                        <textarea class="form-control" rows="3" placeholder="Enter ..." name="meta_desc" id="meta_desc"></textarea>
+                        <textarea class="form-control" rows="5" placeholder="Enter ..." name="meta_desc" id="meta_desc"
+                        
+                        >
+                         @if (!empty($categoryData['meta_description']))
+                          {{$categoryData['meta_description']}}
+                      @else
+                  {{old('meta_description')}}
+                      @endif
+                      </textarea>
                       </div>
                     </div>
                 <!-- /.form-group -->

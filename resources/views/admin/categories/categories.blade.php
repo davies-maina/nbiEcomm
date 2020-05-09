@@ -41,6 +41,7 @@
                   <th>Parent category</th>
                   <th>Url</th>
                    <th>Status</th>
+                   <th>Actions</th>
                  
                 </tr>
                 </thead>
@@ -77,6 +78,10 @@
                   category_id="{{$category->id}}">Inactive</a>
                     @endif
                   </td>
+                <td><a href="{{url('/admin/add-edit-category/'.$category->id)}}">Edit</a> &nbsp;/
+                  <a href="">Delete</a>
+                  </td>
+                  
                   
                 </tr>
                   @endforeach

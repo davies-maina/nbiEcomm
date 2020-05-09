@@ -50,9 +50,27 @@ class CategoryController extends Controller
     {
         if ($id == "") {
             $title = "Add category";
+            $message = "Category added";
             $category = new Category;
+            $categoryData = [];
+            $getCategories = [];
         } else {
             $title = "Edit category";
+            $message = "Category updated successfully";
+            $categoryData = Category::where('id', $id)->first();
+            /* $categoryData = json_decode(json_encode($categoryData));
+            echo '<pre>';
+            print_r($categoryData);
+            die; */
+            $getCategories = Category::with('subcategories')->where(['parent_id' => 0, 'section_id' => $categoryData['section_id']])->get();
+
+
+            /* $getCategories = json_decode(json_encode($getCategories));
+            echo '<pre>';
+            print_r($getCategories);
+            die; */
+
+            $category = Category::find($id);
         }
 
         if ($request->isMethod('post')) {
@@ -61,6 +79,21 @@ class CategoryController extends Controller
             print_r($data);
             die; */
 
+            $rules = [
+                'category_name' => 'required',
+                'section_id' => 'required',
+                /* 'url' => 'required', */
+                'category_image' => 'image'
+
+            ];
+
+            $customMessages = [
+                'category_name.required' => 'Category name is required',
+                'section_id.required' => 'Section is required',
+                /* 'url.required' => 'Category url required', */
+                'category_image.image' => 'Valid image is required'
+            ];
+            $this->validate($request, $rules, $customMessages);
 
             $category->parent_id = $data['parent_id'];
             $category->section_id = $data['section_id'];
@@ -86,26 +119,44 @@ class CategoryController extends Controller
                 }
             } /* else if (!empty($data['category_image'])) {
                 $image_name = $data['category_image'];
+                
                
             } */
             /* $category->category_image = '123.jpg'; */
+            if (empty($data['category_discount'])) {
+                $data['category_discount'] == '';
+            }
+            if (empty($data['category_desc'])) {
+                $data['category_desc'] == '';
+            }
+            if (empty($data['meta_title'])) {
+                $data['meta_title'] == '';
+            }
+            if (empty($data['meta_desc'])) {
+                $data['meta_desc'] == '';
+            }
+            if (empty($data['meta_keywords'])) {
+                $data['meta_keywords'] == '';
+            }
+
+
             $category->category_discount = $data['category_discount'];
             $category->description = $data['category_desc'];
             $category->url = $data['category_url'];
             $category->meta_title = $data['meta_title'];
             $category->meta_description = $data['meta_desc'];
-            $category->meta_keywords = $data['meta_kwords'];
+            $category->meta_keywords = $data['meta_keywords'];
             $category->status = 1;
 
 
             $category->save();
-            Session::flash('success_message', 'Category added');
+            Session::flash('success_message', $message);
             return redirect()->back();
         }
 
         $sections = Section::get();
 
-        return view('admin.categories.addeditcategory')->with(compact('title', 'sections'));
+        return view('admin.categories.addeditcategory')->with(compact('title', 'sections', 'categoryData', 'getCategories'));
     }
 
     public function appendCategoryLevel(Request $request)
