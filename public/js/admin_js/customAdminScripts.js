@@ -89,6 +89,39 @@ $(document).ready(function() {
 
 
     });
+
+    $(".updateProductStatus").click(function() {
+
+        let status = $(this).text();
+        let product_id = $(this).attr("product_id");
+        /*  alert(status);
+         alert(section_id); */
+
+        $.ajax({
+            type: 'post',
+            url: '/admin/update-product-status',
+            data: { status: status, product_id: product_id },
+            success: function(resp) {
+                /*  alert(resp['status']);
+                alert(resp['section_id']);
+ */
+                if (resp['status'] == 0) {
+                    $("#product-" + product_id).html("<a class='updateProductStatus' href='javascript:void(0)'>Inactive</a>");
+                } else if (resp['status'] == 1) {
+                    $("#product-" + product_id).html("<a class='updateProductStatus' href='javascript:void(0)'>Active</a>");
+                }
+
+
+            },
+            error: function() {
+
+                /*  alert('error'); */
+            }
+
+        });
+
+
+    });
     $('#section_id').change(function() {
         let section_id = $(this).val();
         $.ajax({
@@ -108,4 +141,13 @@ $(document).ready(function() {
         });
 
     })
+
+    //confirm delete
+    $('.confirmDelete').click(function() {
+        var name = $(this).attr('name');
+        if (confirm('Are you sure you want to delete this ' + name + '?')) {
+            return true
+        }
+        return false;
+    });
 });

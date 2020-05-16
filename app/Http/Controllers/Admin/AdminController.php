@@ -142,7 +142,10 @@ class AdminController extends Controller
 
             if (Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
                 if ($request->session()->get('url.intended')) {
-                    if ($request->session()->get('url.intended') == 'http://nairobae/admin') {
+                    if (
+                        $request->session()->get('url.intended') == 'http://nairobae/admin'
+
+                    ) {
 
                         return redirect('/admin/dashboard');
                     }

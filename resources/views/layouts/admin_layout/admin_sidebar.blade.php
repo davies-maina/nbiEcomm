@@ -52,7 +52,7 @@
           <a href="#" class="nav-link {{Request::routeIs('sections')? 'active':''}} || {{Request::routeIs('categories')? 'active':''}}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Categories
+                Sections & Categories
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -69,7 +69,16 @@
                   <p>Categories</p>
                 </a>
               </li>
-            </ul>   
+              
+            </ul> 
+            <li class="nav-item has-treeview menu-open">
+            <a href="{{url('/admin/products')}}" class="nav-link {{Request::routeIs('products')? 'active':''}} {{-- || {{Request::routeIs('categories')? 'active':''}} --}}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Products
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>  
         </ul>
         
       </nav>

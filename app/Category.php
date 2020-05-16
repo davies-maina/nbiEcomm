@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+
+    protected $guarded = [];
     public function subcategories()
     {
 
@@ -24,5 +26,11 @@ class Category extends Model
     {
 
         return $this->belongsTo(Category::class, 'parent_id')->select('id', 'category_name');
+    }
+
+    public function products()
+    {
+
+        return $this->hasMany(Product::class);
     }
 }

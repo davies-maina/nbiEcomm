@@ -58,8 +58,8 @@ class CategoryController extends Controller
             $title = "Edit category";
             $message = "Category updated successfully";
             $categoryData = Category::where('id', $id)->first();
-            /* $categoryData = json_decode(json_encode($categoryData));
-            echo '<pre>';
+            $categoryData = json_decode(json_encode($categoryData), true);
+            /* echo '<pre>';
             print_r($categoryData);
             die; */
             $getCategories = Category::with('subcategories')->where(['parent_id' => 0, 'section_id' => $categoryData['section_id']])->get();
@@ -177,5 +177,37 @@ class CategoryController extends Controller
             die; */
             return view('admin.categories.append_categories_level')->with(compact('getCategories'));
         }
+    }
+
+    public function deleteCategoryImage($id)
+    {
+        $categoryImage = Category::select('category_image')->where('id', $id)->first();
+
+        $imagePath = 'images/admin_images/category_images/';
+        /* $categoryImage = json_decode(json_encode($categoryImage));
+        echo '<pre>';
+        print_r($categoryImage);
+        die; */
+
+        if (file_exists($imagePath . $categoryImage->category_image)) {
+            unlink($imagePath . $categoryImage->category_image);
+        }
+
+        Category::where('id', $id)->update(['category_image' => '']);
+        $message = 'Category image deleted successfully';
+        Session::flash('success_message', $message);
+        return redirect()->back();
+    }
+
+    public function deleteCategory($id)
+    {
+        $catPro = Category::where('id', $id)->delete();
+        /*  $catPro = json_decode(json_encode($catPro));
+        echo '<pre>';
+        print_r($catPro);
+        die; */
+        $message = 'Category deleted successfully';
+        Session::flash('success_message', $message);
+        return redirect()->back();
     }
 }

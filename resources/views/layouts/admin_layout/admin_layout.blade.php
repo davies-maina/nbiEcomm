@@ -95,6 +95,7 @@
   $(function () {
     $("#section").DataTable();
     $("#category").DataTable();
+    $("#product").DataTable();
     /* $('#section').DataTable({
       "paging": true,
       "lengthChange": false,
