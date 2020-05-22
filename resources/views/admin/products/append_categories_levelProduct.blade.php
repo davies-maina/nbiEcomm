@@ -1,9 +1,11 @@
 <div class="form-group">
                   <label>Select category level</label>
                   <select class="form-control select2" style="width: 100%;" name="category_id"  id="category_id">
-                    <option value="0" @if (isset($productData->category['parent_id']) && $productData->category['parent_id']==0)
+                   {{--  @if(isset($productData->category['id']))
+                  <option  disabled @if (isset($productData->category['parent_id']) && $productData->category['parent_id']==0)
                         selected=""
                     @endif>Main Category</option>
+                    @endif --}}
                    
                     @if (!empty($getCategories))
                         @foreach ($getCategories as $category)

@@ -7,6 +7,7 @@ use App\Section;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\productattributes;
 use Image;
 use Session;
 
@@ -16,7 +17,7 @@ class ProductController extends Controller
     public function products()
     {
 
-        $products = Product::with(['section', 'category'])->get();
+        $products = Product::with(['section', 'category', 'attributes'])->get();
         /* $products = json_decode(json_encode($products));
 
         echo '<pre>';
@@ -79,9 +80,9 @@ class ProductController extends Controller
 
             $data = $request->all();
 
-            /* echo '<pre>';
+            echo '<pre>';
             print_r($data);
-            die; */
+            die;
 
             $rules = [
                 'product_name' => 'required',
@@ -101,7 +102,7 @@ class ProductController extends Controller
             ];
             $this->validate($request, $rules, $customMessages);
 
-            $product->category_id = $data['category_id'];
+            $product->category_id = $data['parent_id'];
             $product->section_id = $data['section_id'];
             $product->product_name = $data['product_name'];
             if ($request->hasFile('product_image')) {
@@ -189,6 +190,62 @@ class ProductController extends Controller
     {
         Product::where('id', $id)->delete();
         $message = 'Product deleted successfully';
+        Session::flash('success_message', $message);
+        return redirect()->back();
+    }
+
+    public function addEditProductAttributes(Request $request, $id, $proAttrId = null)
+    {
+        if ($proAttrId == '') {
+            $title = 'Add attributes';
+            $productAttributesData = Product::with('attributes')->where('id', $id)->first();
+            /* $productAttributesData = json_decode(json_encode($productAttributesData));
+            echo '<pre>';
+            print_r($productAttributesData);
+        die; */
+        } else {
+            $title = 'Edit Attributes';
+            $message = 'Attributes updated!';
+            $productAttributesData = Product::with('attributes')->where('id', $id)->first();
+            /* $productAttributesDataE = productattributes::with('product')->where(['id' => $proAttrId, 'product_id' => $id])->first(); */
+            /* $productAttributesDataE = json_decode(json_encode($productAttributesDataE));
+            echo '<pre>';
+            print_r($productAttributesDataE);
+            die; */
+        }
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            /* echo '<pre>';
+                print_r($data);
+                die; */
+
+            foreach ($data['sku'] as $key => $val) {
+
+
+                if (!empty($val)) {
+
+                    $attribute = new productattributes;
+
+                    $attribute->product_id = $data['product_id'];
+                    $attribute->sku = $val;
+                    $attribute->size = $data['size'][$key];
+                    $attribute->price = $data['price'][$key];
+                    $attribute->stock = $data['stock'][$key];
+                    $attribute->save();
+                }
+            }
+            $message = 'Attributes saved!';
+            Session::flash('success_message', $message);
+            return redirect()->back();
+        }
+        return view('admin.products.addeditproductattributes')->with(compact('title', 'productAttributesData'));
+    }
+
+    public function deleteProductAttribute($id)
+    {
+
+        productattributes::where('id', $id)->delete();
+        $message = 'Attribute deleted!';
         Session::flash('success_message', $message);
         return redirect()->back();
     }

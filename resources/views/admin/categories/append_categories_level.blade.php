@@ -2,8 +2,10 @@
                   <label>Select category level</label>
                   <select class="form-control select2" style="width: 100%;" name="parent_id"  id="parent_id">
                     <option value="0" @if (isset($categoryData['parent_id']) && $categoryData['parent_id']==0)
+                        disabled
                         selected=""
-                    @endif>Main Category</option>
+                    @endif>
+                    Main Category</option>
                    
                     @if (!empty($getCategories))
                         @foreach ($getCategories as $category)

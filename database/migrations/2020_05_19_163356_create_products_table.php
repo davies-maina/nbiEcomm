@@ -23,6 +23,20 @@ class CreateProductsTable extends Migration
             $table->text('product_description');
             $table->float('product_price');
             $table->string('product_image');
+            $table->string('product_discount')->nullable();
+            $table->string('product_weight')->nullable();
+            $table->string('product_video')->nullable();
+            $table->string('product_washcare')->nullable();
+            $table->string('product_fabric')->nullable();
+            $table->string('product_pattern')->nullable();
+            $table->string('product_sleeve')->nullable();
+            $table->string('product_fit')->nullable();
+            $table->string('product_occassion')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->string('meta_description')->nullable();
+            $table->string('meta_keywords')->nullable();
+            $table->enum('is_featured', ['No', 'Yes'])->nullable();
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }

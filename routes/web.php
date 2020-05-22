@@ -14,13 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'User\IndexController@index');
+Route::post('/loadproducts', 'User\IndexController@load_products')->name('loadproducts');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+/* Route::get('/hometest', 'HomeController@showTest')->name('homeTest'); */
 
 Route::prefix('/admin')->namespace('Admin')->group(function () {
     Route::match(['get', 'post'], '/', 'AdminController@login');
@@ -51,5 +51,10 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
         Route::match(['get', 'post'], 'add-edit-product/{id?}', 'ProductController@addEditProduct');
         Route::get('delete-product-image/{id}', 'ProductController@deleteProductImage');
         Route::get('delete-product/{id}', 'ProductController@deleteProduct');
+
+        //product attributes
+
+        Route::match(['get', 'post'], 'add-edit-attributes/{id}/{proAttrId?}', 'ProductController@addEditProductAttributes');
+        Route::get('delete-product-attributes/{id}', 'ProductController@deleteProductAttribute');
     });
 });

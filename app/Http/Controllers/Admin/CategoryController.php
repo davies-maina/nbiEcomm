@@ -15,8 +15,8 @@ class CategoryController extends Controller
     {
 
         $categories = Category::with(['section', 'parentcategory'])->get();
-        /* $categories = json_decode(json_encode($categories));
-        echo '<pre>';
+        /* $categories = json_decode(json_encode($categories)); */
+        /* echo '<pre>';
         print_r($categories);
         die; */
         return view('admin.categories.categories')->with(compact('categories'));
@@ -201,11 +201,14 @@ class CategoryController extends Controller
 
     public function deleteCategory($id)
     {
-        $catPro = Category::where('id', $id)->delete();
+        /* $catPro = Category::where('id', $id)->delete(); */
         /*  $catPro = json_decode(json_encode($catPro));
         echo '<pre>';
         print_r($catPro);
         die; */
+        $category = Category::find($id);
+        $category->products()->delete();
+        $category->delete();
         $message = 'Category deleted successfully';
         Session::flash('success_message', $message);
         return redirect()->back();

@@ -48,9 +48,9 @@
                   <th>Name</th>
                   <th>Section</th>
                   <th>Category</th>
-                  <th>Code</th>
-                   <th>Color</th>
-                   <th>Price</th>
+                  <th>Price</th>
+                   
+                   <th>Image</th>
                     <th>Status</th>
                    <th>Actions</th>
                  
@@ -62,14 +62,20 @@
                   
                       <tr>
                       <td>{{$product->id}}</td>
+                      
                   <td>{{$product->product_name}}
                   </td>
                   <td>{{$product->section->name}}</td>
                   <td>{{$product->category->category_name}}</td>
-                <td>{{$product->product_code}}</td>
-                <td>{{$product->product_color}}</td>
+                
                 
                   <td>{{$product->product_price}}</td>
+                  <td>
+                    <div>
+                    <img src="{{url('images/admin_images/product_images/'.$product->product_image)}}"
+                    style="width: 80px;">
+                    </div>
+                  </td>
                   
                   <td>
                     @if ($product->status==1)
@@ -88,7 +94,15 @@
                   
                   
                 <td><a href="{{url('/admin/add-edit-product/'.$product->id)}}">Edit</a> &nbsp;/
-                  <a href="{{url('/admin/delete-product/'.$product->id)}}" class="confirmDelete" name="product">Delete</a>
+                  
+                  <a href="{{url('/admin/delete-product/'.$product->id)}}" class="confirmDelete" name="product">Delete</a>&nbsp;/
+                                    <a href="{{url('/admin/add-edit-attributes/'.$product->id)}}">Add ATR</a>
+                                    &nbsp;/
+                                    <br>
+
+                                    
+                                    
+
                   </td>
                   
                   
@@ -103,9 +117,9 @@
                   <th>Name</th>
                   <th>Section</th>
                   <th>Category</th>
-                  <th>Code</th>
-                   <th>Color</th>
+                  
                    <th>Price</th>
+                   <th>Image</th>
                     <th>Status</th>
                    <th>Actions</th>
                 </tr>
