@@ -14,7 +14,7 @@
                                             <div class="bnslider-text bnslider-text--xxs text-center" data-animation="fadeInUp" data-animation-delay="1.2s" style="color: #fff; font-weight: bold; opacity: 0;  font-size: .72em;margin-top: .2em;">SOLUTION</div>
                                             <div class="bnslider-text bnslider-text--lg text-center" data-animation="fadeIn" data-animation-delay="1.5s" style="color: #fff; opacity: 0; font-size: .18em; font-weight: 600;margin-top: 1.2em;">FOR YOUR BUSINESS</div>
                                             <div class="bnslider-text bnslider-text--xs text-center" data-animation="zoomIn" data-animation-delay="2.8s" style="color: #fff; font-weight: 600; font-size: .24em;margin-top: 1.5em;">WEEKLY <img width="50" alt="" src="../../cdn.shopify.com/s/files/1/0026/0400/7539/files/goodwin-top-sellere4f5.png?v=1575471007"> TOPSELLER</div>
-                                            <div class="btn-wrap double-mt text-center" data-animation="fadeInUp" data-animation-delay="2s" style="opacity: 0"><a target="_blank" href="https://themeforest.net/item/goodwin-ecommerce-html-template/23251412?rel=bigsteps" class="btn-decor" style="color: #fff;">buy theme<span class="btn-line" style="background-color: #fff;"></span></a></div>
+                                            <div class="btn-wrap double-mt text-center" data-animation="fadeInUp" data-animation-delay="2s" style="opacity: 0"><a target="_blank" href="https://themeforest.net/item/goodwin-ecommerce-html-template/23251412?rel=bigsteps" class="btn-decor" style="color: #fff;"><span class="btn-line" style="background-color: #fff;"></span></a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -70,3 +70,5 @@
             </div>
         </div>
         <!-- //BN Slider 1 -->
+
+    <sectionbg :sections='{{json_encode($sections)}}'></sectionbg>

@@ -37,6 +37,8 @@
                   <th>id</th>
                   <th>Name</th>
                   <th>Status</th>
+                  <th>Image</th>
+                  <th>Update</th>
                  
                 </tr>
                 </thead>
@@ -60,6 +62,23 @@
                   section_id="{{$section->id}}">Inactive</a>
                     @endif
                   </td>
+                 @if ($section->section_image)
+                     <td>
+                    <div>
+                    <img src="{{url('images/admin_images/section_images/'.$section->section_image)}}"
+                    style="width: 80px;">
+                    </div>
+                  </td>  
+                 @else
+                    <td>
+                    <div>
+                   <p>No image set</p>
+                    </div>
+                  </td>   
+                 @endif
+                 
+                    <td><a href="{{url('/admin/add-edit-section/'.$section->id)}}">Edit</a></td>
+                 
                   
                 </tr>
                   @endforeach
@@ -70,6 +89,8 @@
                  <th>id</th>
                   <th>Name</th>
                   <th>Status</th>
+                  <th>Image</th>
+                  <th>Update</th>
                 </tr>
                 </tfoot>
               </table>

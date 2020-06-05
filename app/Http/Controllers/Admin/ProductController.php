@@ -65,7 +65,7 @@ class ProductController extends Controller
             /*  echo '<pre>';
             print_r($productData);
             die; */
-            $getCategories = Category::with('subcategories')->where([/* 'parent_id' => 0,  */'section_id' => $productData['section_id']])->get();
+            $getCategories = Category::with('subcategories')->where(['parent_id' => 0, 'section_id' => $productData['section_id']])->get();
 
 
             /* $getCategories = json_decode(json_encode($getCategories));
@@ -248,5 +248,19 @@ class ProductController extends Controller
         $message = 'Attribute deleted!';
         Session::flash('success_message', $message);
         return redirect()->back();
+    }
+
+    public function listingproducts()
+    {
+
+        return view('user.index.listing');
+    }
+
+    public function categoryproducts($url = null)
+    {
+        $categoryproducts = Category::where(['url' => $url])->first();
+        $products = Product::where(['category_id' => $categoryproducts->id])->paginate(1);
+
+        return response()->json($products, 200);
     }
 }

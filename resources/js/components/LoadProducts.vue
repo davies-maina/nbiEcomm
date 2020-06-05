@@ -5,7 +5,7 @@
             <div class="filter-row invisible">
                 <div class="row row-1 d-lg-none align-items-center">
                     <div class="col">
-                        <h1 class="category-title">WOMEN’S</h1>
+                        <h1 class="category-title">Products</h1>
                     </div>
                     <div class="col-auto ml-auto">
                         <div class="view-in-row d-md-none">
@@ -98,115 +98,242 @@
             </div>
             <!-- /Filter Row -->
             <!-- Products Grid -->
-            <div
-                class="prd-grid product-listing data-to-show-3 data-to-show-md-3 data-to-show-sm-2 js-category-grid"
-            >
+            <template v-if="$store.getters.products">
                 <div
-                    class="prd prd-new"
-                    v-for="product in products"
-                    :key="product.id"
+                    class="prd-grid product-listing data-to-show-3 data-to-show-md-3 data-to-show-sm-2 js-category-grid"
                 >
-                    <div class="prd-inside">
-                        <div class="prd-img-area">
-                            <a href="product.html" class="prd-img"
-                                ><img
-                                    src="images/products/product-placeholder.png"
-                                    :data-srcset="
-                                        'http://nairobae/images/admin_images/product_images/' +
-                                            product.product_image
-                                    "
-                                    alt="Glamor shoes"
-                                    class="js-prd-img lazyload"
-                            /></a>
-                            <div class="label-new">NEW</div>
-                            <a
-                                href="#"
-                                class="label-wishlist icon-heart js-label-wishlist"
-                            ></a>
-                            <ul
-                                class="list-options color-swatch prd-hidemobile"
-                            >
-                                <li data-image="images/products/product-01.jpg">
-                                    <a href="#" class="js-color-toggle"
-                                        ><img
-                                            src="images/products/product-placeholder.png"
-                                            data-srcset="images/products/xsmall/product-01.jpg"
-                                            class="lazyload"
-                                            alt="Color Name"
-                                    /></a>
-                                </li>
-                                <li
-                                    data-image="images/products/product-01-2.jpg"
+                    <div
+                        class="prd prd-new"
+                        v-for="product in products"
+                        :key="product.id"
+                    >
+                        <div class="prd-inside">
+                            <div class="prd-img-area">
+                                <a href="product.html" class="prd-img"
+                                    ><img
+                                        src="images/products/product-placeholder.png"
+                                        :data-srcset="
+                                            'http://nairobae/images/admin_images/product_images/' +
+                                                product.product_image
+                                        "
+                                        alt="Glamor shoes"
+                                        class="js-prd-img lazyload"
+                                /></a>
+                                <div class="label-new">NEW</div>
+                                <a
+                                    href="#"
+                                    class="label-wishlist icon-heart js-label-wishlist"
+                                ></a>
+                                <ul
+                                    class="list-options color-swatch prd-hidemobile"
                                 >
-                                    <a href="#" class="js-color-toggle"
-                                        ><img
-                                            src="images/products/product-placeholder.png"
-                                            data-srcset="images/products/xsmall/product-01-2.jpg"
-                                            class="lazyload"
-                                            alt="Color Name"
-                                    /></a>
-                                </li>
-                            </ul>
-                            <div class="gdw-loader"></div>
-                        </div>
-                        <div class="prd-info">
-                            <div class="prd-tag prd-hidemobile">
-                                <a href="#">under armor</a>
+                                    <li
+                                        data-image="images/products/product-01.jpg"
+                                    >
+                                        <a href="#" class="js-color-toggle"
+                                            ><img
+                                                src="images/products/product-placeholder.png"
+                                                data-srcset="images/products/xsmall/product-01.jpg"
+                                                class="lazyload"
+                                                alt="Color Name"
+                                        /></a>
+                                    </li>
+                                    <li
+                                        data-image="images/products/product-01-2.jpg"
+                                    >
+                                        <a href="#" class="js-color-toggle"
+                                            ><img
+                                                src="images/products/product-placeholder.png"
+                                                data-srcset="images/products/xsmall/product-01-2.jpg"
+                                                class="lazyload"
+                                                alt="Color Name"
+                                        /></a>
+                                    </li>
+                                </ul>
+                                <div class="gdw-loader"></div>
                             </div>
-                            <h2 class="prd-title">
-                                <a href="product.html">{{
-                                    product.product_name
-                                }}</a>
-                            </h2>
-                            <div class="prd-rating prd-hidemobile">
-                                <i class="icon-star fill"></i
-                                ><i class="icon-star fill"></i
-                                ><i class="icon-star fill"></i
-                                ><i class="icon-star fill"></i
-                                ><i class="icon-star"></i>
-                            </div>
-                            <div class="prd-price">
-                                <div class="price-new">
-                                    {{ product.product_price }}
+                            <div class="prd-info">
+                                <div class="prd-tag prd-hidemobile">
+                                    <a href="#">under armor</a>
                                 </div>
-                            </div>
-                            <div class="prd-hover">
-                                <div class="prd-action">
-                                    <form action="#">
-                                        <input type="hidden" />
-                                        <button
-                                            class="btn"
-                                            data-fancybox
-                                            data-src="#modalCheckOut"
-                                        >
-                                            <i class="icon icon-handbag"></i
-                                            ><span>Add To Cart</span>
-                                        </button>
-                                    </form>
-                                    <div class="prd-links">
-                                        <a
-                                            href="#"
-                                            class="icon-eye prd-qview-link js-qview-link"
-                                            data-fancybox
-                                            data-src="#modalQuickView"
-                                        ></a>
+                                <h2 class="prd-title">
+                                    <a href="product.html">{{
+                                        product.product_name
+                                    }}</a>
+                                </h2>
+                                <div class="prd-rating prd-hidemobile">
+                                    <i class="icon-star fill"></i
+                                    ><i class="icon-star fill"></i
+                                    ><i class="icon-star fill"></i
+                                    ><i class="icon-star fill"></i
+                                    ><i class="icon-star"></i>
+                                </div>
+                                <div class="prd-price">
+                                    <div class="price-new">
+                                        {{ product.product_price }}
                                     </div>
                                 </div>
-                                <div class="prd-options prd-hidemobile">
-                                    <span class="label-options">Sizes:</span>
-                                    <ul class="list-options size-swatch">
-                                        <li class="active"><span>xs</span></li>
-                                        <li><span>s</span></li>
-                                        <li><span>m</span></li>
-                                        <li><span>l</span></li>
-                                        <li><span>xl</span></li>
-                                    </ul>
+                                <div class="prd-hover">
+                                    <div class="prd-action">
+                                        <form action="#">
+                                            <input type="hidden" />
+                                            <button
+                                                class="btn"
+                                                data-fancybox
+                                                data-src="#modalCheckOut"
+                                            >
+                                                <i class="icon icon-handbag"></i
+                                                ><span>Add To Cart</span>
+                                            </button>
+                                        </form>
+                                        <div class="prd-links">
+                                            <a
+                                                href="#"
+                                                class="icon-eye prd-qview-link js-qview-link"
+                                                data-fancybox
+                                                data-src="#modalQuickView"
+                                            ></a>
+                                        </div>
+                                    </div>
+                                    <div class="prd-options prd-hidemobile">
+                                        <span class="label-options"
+                                            >Sizes:</span
+                                        >
+                                        <ul class="list-options size-swatch">
+                                            <li class="active">
+                                                <span>xs</span>
+                                            </li>
+                                            <li><span>s</span></li>
+                                            <li><span>m</span></li>
+                                            <li><span>l</span></li>
+                                            <li><span>xl</span></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </template>
+
+            <template v-if="$store.getters.categoryproducts">
+                <div
+                    class="prd-grid product-listing data-to-show-3 data-to-show-md-3 data-to-show-sm-2 js-category-grid"
+                >
+                    <div
+                        class="prd prd-new"
+                        v-for="product in categoryproducts"
+                        :key="product.id"
+                    >
+                        <div class="prd-inside">
+                            <div class="prd-img-area">
+                                <a href="product.html" class="prd-img"
+                                    ><img
+                                        src="images/products/product-placeholder.png"
+                                        :data-srcset="
+                                            'http://nairobae/images/admin_images/product_images/' +
+                                                product.product_image
+                                        "
+                                        alt="Glamor shoes"
+                                        class="js-prd-img lazyload"
+                                /></a>
+                                <div class="label-new">NEW</div>
+                                <a
+                                    href="#"
+                                    class="label-wishlist icon-heart js-label-wishlist"
+                                ></a>
+                                <ul
+                                    class="list-options color-swatch prd-hidemobile"
+                                >
+                                    <li
+                                        data-image="images/products/product-01.jpg"
+                                    >
+                                        <a href="#" class="js-color-toggle"
+                                            ><img
+                                                src="images/products/product-placeholder.png"
+                                                data-srcset="images/products/xsmall/product-01.jpg"
+                                                class="lazyload"
+                                                alt="Color Name"
+                                        /></a>
+                                    </li>
+                                    <li
+                                        data-image="images/products/product-01-2.jpg"
+                                    >
+                                        <a href="#" class="js-color-toggle"
+                                            ><img
+                                                src="images/products/product-placeholder.png"
+                                                data-srcset="images/products/xsmall/product-01-2.jpg"
+                                                class="lazyload"
+                                                alt="Color Name"
+                                        /></a>
+                                    </li>
+                                </ul>
+                                <div class="gdw-loader"></div>
+                            </div>
+                            <div class="prd-info">
+                                <div class="prd-tag prd-hidemobile">
+                                    <a href="#">under armor</a>
+                                </div>
+                                <h2 class="prd-title">
+                                    <a href="product.html">{{
+                                        product.product_name
+                                    }}</a>
+                                </h2>
+                                <div class="prd-rating prd-hidemobile">
+                                    <i class="icon-star fill"></i
+                                    ><i class="icon-star fill"></i
+                                    ><i class="icon-star fill"></i
+                                    ><i class="icon-star fill"></i
+                                    ><i class="icon-star"></i>
+                                </div>
+                                <div class="prd-price">
+                                    <div class="price-new">
+                                        {{ product.product_price }}
+                                    </div>
+                                </div>
+                                <div class="prd-hover">
+                                    <div class="prd-action">
+                                        <form action="#">
+                                            <input type="hidden" />
+                                            <button
+                                                class="btn"
+                                                data-fancybox
+                                                data-src="#modalCheckOut"
+                                            >
+                                                <i class="icon icon-handbag"></i
+                                                ><span>Add To Cart</span>
+                                            </button>
+                                        </form>
+                                        <div class="prd-links">
+                                            <a
+                                                href="#"
+                                                class="icon-eye prd-qview-link js-qview-link"
+                                                data-fancybox
+                                                data-src="#modalQuickView"
+                                            ></a>
+                                        </div>
+                                    </div>
+                                    <div class="prd-options prd-hidemobile">
+                                        <span class="label-options"
+                                            >Sizes:</span
+                                        >
+                                        <ul class="list-options size-swatch">
+                                            <li class="active">
+                                                <span>xs</span>
+                                            </li>
+                                            <li><span>s</span></li>
+                                            <li><span>m</span></li>
+                                            <li><span>l</span></li>
+                                            <li><span>xl</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
             <div class="loader-wrap">
                 <div class="dots">
                     <div class="dot one"></div>
@@ -234,13 +361,38 @@
                     <li><a href="#">5</a></li>
                 </ul> -->
             </div>
+            <div
+                class="show-more d-flex mt-4 mt-md-6 justify-content-center align-items-start"
+                v-if="$store.getters.morecategoryproducts"
+            >
+                <a
+                    class="btn btn--alt js-product-show-more"
+                    data-load="ajax-products-load.html"
+                    @click="loadMoreCategoryProducts"
+                    >show more</a
+                >
+                <!-- <ul class="pagination mt-0">
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                </ul> -->
+            </div>
+        </div>
+        <div>
+            <viewproduct></viewproduct>
         </div>
     </div>
 </template>
 
 <script>
+import viewproduct from "./viewproduct";
 export default {
     name: "LoadProducts",
+    components: {
+        viewproduct
+    },
     data() {
         return {};
     },
@@ -251,12 +403,23 @@ export default {
     methods: {
         loadMore() {
             this.$store.dispatch("loadmore", this.$store.getters.nextpage);
+        },
+        loadMoreCategoryProducts() {
+            let payload = {
+                url: this.$store.getters.categoryproductsurl,
+                nextpage: this.$store.getters.nextpagecatprod
+            };
+            this.$store.dispatch("loadmorecatprod", payload);
         }
     },
 
     computed: {
         products() {
             return this.$store.getters.products;
+        },
+
+        categoryproducts() {
+            return this.$store.getters.categoryproducts;
         }
     }
 };

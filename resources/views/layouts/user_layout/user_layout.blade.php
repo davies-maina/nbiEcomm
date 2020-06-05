@@ -35,14 +35,14 @@
             </div>
         </div>
     </div>
-    {{-- @include('layouts.user_layout.user_header') --}}
+    @include('layouts.user_layout.user_header')
 
     {{-- content --}}
     <div class="page-content">
 
         @yield('content')
     </div>
-    {{-- @include('layouts.user_layout.user_footer') --}}
+    @include('layouts.user_layout.user_footer')
     </div>
 <script src="{{asset('js/app.js')}}"></script>
  {{-- <script src="{{url('js/user_js/js/vendor/jquery/jquery.min.js')}}"></script> --}}

@@ -28,6 +28,21 @@ const store = new Vuex.Store(storeAppData);
     "example-component",
     require("./components/ExampleComponent.vue").default
 ); */
+Vue.component(
+    "navbar",
+    require("./components/Header.vue").default
+);
+
+Vue.component(
+    "viewproduct",
+    require("./components/viewproduct.vue").default
+);
+
+
+Vue.component(
+    "sectionbg",
+    require("./components/sectionbg.vue").default
+);
 
 Vue.component(
     "load-products",

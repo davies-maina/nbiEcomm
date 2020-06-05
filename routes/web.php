@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'User\IndexController@index');
 Route::post('/loadproducts', 'User\IndexController@load_products')->name('loadproducts');
+Route::post('/loadcategories', 'User\IndexController@load_categories')->name('loadcategories');
+Route::get('/listproducts', 'Admin\ProductController@listingproducts');
+Route::get('/listproducts/{url}', 'Admin\ProductController@categoryproducts');
 
 Auth::routes();
 
@@ -38,6 +41,8 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
 
         Route::get('sections', 'SectionController@sections')->name('sections');
         Route::post('update-section-status', 'SectionController@updateSectionStatus');
+        Route::match(['get', 'post'], 'add-edit-section/{id?}', 'SectionController@addEditSection');
+        Route::get('delete-section-image/{id}', 'SectionController@deleteSectionImage');
 
         Route::get('categories', 'CategoryController@categories')->name('categories');
         Route::post('update-category-status', 'CategoryController@updateCategoryStatus');
