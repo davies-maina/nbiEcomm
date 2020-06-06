@@ -15,7 +15,8 @@ export default {
 
         categories: [],
         sections: [],
-        showModal: false,
+        viewproduct: [],
+
 
 
     },
@@ -57,10 +58,11 @@ export default {
         productscount(state) {
             return state.productscount
         },
-        showModal(state) {
+        viewproduct(state) {
+            return state.viewproduct
 
-            return state.showModal;
         }
+
 
     },
 
@@ -142,9 +144,10 @@ export default {
             }
 
         },
-        showmodal(state, payload) {
+        viewproduct(state, payload) {
+            state.viewproduct = payload;
+            $(".viewproduct").modal("show");
 
-            state.showModal = true
         }
 
 
@@ -199,6 +202,13 @@ export default {
                     commit("getcategoryproducts", res);
                 })
 
+        },
+
+        viewproduct({ commit }, payload) {
+
+            /* $(".viewproduct").modal("show"); */
+            /*  console.log(payload) */
+            commit('viewproduct', payload);
         }
 
 

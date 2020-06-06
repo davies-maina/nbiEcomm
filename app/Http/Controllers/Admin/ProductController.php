@@ -223,6 +223,24 @@ class ProductController extends Controller
 
 
                 if (!empty($val)) {
+                    $checkDuplicateSku = productattributes::where('sku', $val)->count();
+                    if ($checkDuplicateSku > 0) {
+                        $message = 'SKU already exists!';
+                        Session::flash('success_message', $message);
+                        return redirect()->back();
+                    }
+
+                    $checkDuplicateSizes = productattributes::where([
+                        'product_id' => $id,
+
+                        'size' => $data['size'][$key]
+                    ])->count();
+
+                    if ($checkDuplicateSizes) {
+                        $message = $data['size'][$key] . '' . 'size already exists for this product!';
+                        Session::flash('success_message', $message);
+                        return redirect()->back();
+                    }
 
                     $attribute = new productattributes;
 

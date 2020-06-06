@@ -188,10 +188,9 @@
                                         </form>
                                         <div class="prd-links">
                                             <a
-                                                href="#"
-                                                class="icon-eye prd-qview-link js-qview-link"
-                                                data-fancybox
-                                                data-src="#modalQuickView"
+                                                data-toggle="modal"
+                                                @click="viewproduct(product)"
+                                                class="icon-eye prd-qview-link js-qview-link btn btn-primary"
                                             ></a>
                                         </div>
                                     </div>
@@ -306,10 +305,9 @@
                                         </form>
                                         <div class="prd-links">
                                             <a
-                                                href="#"
-                                                class="icon-eye prd-qview-link js-qview-link"
-                                                data-fancybox
-                                                data-src="#modalQuickView"
+                                                data-toggle="modal"
+                                                data-target=".bd-example-modal-lg"
+                                                class="icon-eye prd-qview-link js-qview-link btn btn-primary"
                                             ></a>
                                         </div>
                                     </div>
@@ -410,6 +408,9 @@ export default {
                 nextpage: this.$store.getters.nextpagecatprod
             };
             this.$store.dispatch("loadmorecatprod", payload);
+        },
+        viewproduct(product) {
+            this.$store.dispatch("viewproduct", product);
         }
     },
 
