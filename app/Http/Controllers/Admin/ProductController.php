@@ -80,13 +80,18 @@ class ProductController extends Controller
 
             $data = $request->all();
 
-            echo '<pre>';
+            /* echo '<pre>';
             print_r($data);
-            die;
+            die; */
+            $category_details = Category::find($data['category_id']);
+            $section_id = $category_details['section_id'];
+            /* echo '<pre>';
+            print_r($category_details['section_id']);
+            die; */
 
             $rules = [
                 'product_name' => 'required',
-                'section_id' => 'required',
+                /* 'section_id' => 'required', */
                 /* 'url' => 'required', */
                 'product_image' => 'image',
                 'product_price' => 'required|integer'
@@ -95,15 +100,19 @@ class ProductController extends Controller
 
             $customMessages = [
                 'product_name.required' => 'Product name is required',
-                'section_id.required' => 'Section is required',
+                /* 'section_id.required' => 'Section is required', */
                 /* 'url.required' => 'Category url required', */
                 'product_image.image' => 'Valid image is required',
                 'product_price.required' => 'Price is required'
             ];
+
             $this->validate($request, $rules, $customMessages);
 
-            $product->category_id = $data['parent_id'];
-            $product->section_id = $data['section_id'];
+
+            $product->section_id = $category_details['section_id'];
+
+            $product->category_id = $data['category_id'];
+            $product->section_id = $section_id;
             $product->product_name = $data['product_name'];
             if ($request->hasFile('product_image')) {
                 $imgD = $request->file('product_image');
@@ -112,7 +121,17 @@ class ProductController extends Controller
 
                     $image_name = rand(111, 999999) . '.' . $image_ext;
 
-                    $image_path = 'images/admin_images/product_images/' . $image_name;
+
+                    $image_large_path = 'images/admin_images/product_images/large/' . $image_name;
+                    $image_medium_path = 'images/admin_images/product_images/medium/' . $image_name;
+                    $image_xsmall_path = 'images/admin_images/product_images/xsmall/' . $image_name;
+                    $image_small_path = 'images/admin_images/product_images/small/' . $image_name;
+
+                    Image::make($imgD)->save($image_large_path);
+
+                    Image::make($imgD)->resize(508, 600)->save($image_medium_path); //medium image
+                    Image::make($imgD)->resize(175, 207)->save($image_small_path); //small image
+                    Image::make($imgD)->resize(70, 83)->save($image_small_path); //xsmall image
 
                     /* $current_image = Auth::guard('admin')->user()->image;
                     $current_image = 'images/admin_images/category_images/' . $current_image;
@@ -121,15 +140,26 @@ class ProductController extends Controller
                         File::delete($current_image);
                     } */
 
-                    Image::make($imgD)->resize(500, 500)->save($image_path);
+
                     $product->product_image = $image_name;
                 }
-            } /* else if (!empty($data['category_image'])) {
-                $image_name = $data['category_image'];
-                
-               
-            } */
-            /* $category->category_image = '123.jpg'; */
+            }
+
+            if ($request->hasFile('product_video')) {
+                $videoD = $request->file('product_video');
+                if ($videoD->isValid()) {
+                    $video_ext = $videoD->getClientOriginalExtension();
+
+                    $video_name = rand(111, 999999) . '.' . $video_ext;
+
+                    $video_path = 'videos/admin_videos/product_videos/' . $video_name;
+
+                    $videoD->save($video_path, $video_ext);
+
+
+                    $product->product_video = $video_name;
+                }
+            }
             if (empty($data['product_code'])) {
                 $data['product_code'] == '';
             }
@@ -151,6 +181,23 @@ class ProductController extends Controller
             $product->product_description = $data['product_description'];
             $product->product_color = $data['product_color'];
             $product->product_price = $data['product_price'];
+            $product->product_discount = $data['product_discount'];
+            $product->product_weight = $data['product_weight'];
+            $product->product_washcare = $data['product_washcare'];
+            $product->product_fabric = $data['product_fabric'];
+            $product->product_pattern = $data['product_pattern'];
+            $product->product_sleeve = $data['product_sleeve'];
+            $product->product_fit = $data['product_fit'];
+            $product->product_occassion = $data['product_occassion'];
+            /*  $product->is_featured = $data['is_featured']; */
+            if (empty($data['is_featured'])) {
+                $featured = 0;
+            } else {
+                $featured
+                    = 1;
+            }
+            $product->is_featured = $featured;
+
 
             $product->status = 1;
 
@@ -160,8 +207,29 @@ class ProductController extends Controller
         }
 
         $sections = Section::get();
+        $categories = Section::with('categories')->get();
+        $categories = json_decode(json_encode($categories), true);
+        /* echo '<pre>';
+        print_r($categories);
+        die; */
+        $fabricArray = array('Cottton', 'Polyester', 'Wool');
+        $sleeveArray = array('Short sleeve', 'Half sleeve', 'Long sleeve');
+        $patternArray = array('Checked', 'Plain', 'Printed', 'Self', 'Solid');
+        $fitArray = array('Regular', 'Slim');
+        $occassionArray = array('Formal', 'Casual');
         return view('admin.products.addeditproduct')->with(
-            compact('title', 'sections', 'productData', 'getCategories')
+            compact(
+                'title',
+                'sections',
+                'categories',
+                'productData',
+                'getCategories',
+                'fabricArray',
+                'sleeveArray',
+                'patternArray',
+                'fitArray',
+                'occassionArray'
+            )
         );
     }
 

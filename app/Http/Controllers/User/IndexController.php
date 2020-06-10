@@ -22,7 +22,7 @@ class IndexController extends Controller
     {
         /* $products = Product::InRandomOrder()->get(); */
 
-        $products = Product::orderBy('created_at', 'desc')->InRandomOrder()->paginate(1);
+        $products = Product::orderBy('created_at', 'desc')->InRandomOrder()->paginate(3);
         /* $products = Product::InRandomOrder()->paginate(1); */
         return response()->json($products, 200);
     }
